@@ -1,0 +1,31 @@
+
+services:
+  db:
+    image: postgres:15
+    container_name: task_manager_db
+    restart: always
+    environment:
+      POSTGRES_DB: task_manager
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  web:
+    build: .
+    container_name: task_manager_api
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+
+volumes:
+  postgres_data:
