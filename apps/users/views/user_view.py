@@ -6,6 +6,11 @@ from apps.users.serializers.user_serializer import UserSerializer, CreateUserSer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return User.objects.filter(pk=self.request.user.pk)
+        return User.objects.none()
     
     def get_permissions(self):
         if self.action == 'create':
