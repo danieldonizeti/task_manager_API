@@ -15,9 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yt%=)fxjxqzqkazt+@a+0j6pzaz#-ukle$l$yall*g*dm0pobv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['task-manager-api-qesq.onrender.com']
+ALLOWED_HOSTS = [
+    'task-manager-api-qesq.onrender.com',
+    '127.0.0.1',
+    'localhost',]
 
 
 # Application definition
@@ -129,6 +132,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE':5,
+
+    'EXCEPTION_HANDLER': 'common.exceptions.handler.custom_exception_handler',
 }
 
 SIMPLE_JWT = {
