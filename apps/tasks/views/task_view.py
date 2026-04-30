@@ -7,6 +7,7 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from apps.tasks.models import Task
 from apps.tasks.serializers.task_serializer import TaskSerializer
 from common.permissions.is_owner import IsOwner
+from common.utils.response import success_response
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -27,3 +28,12 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+    
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        return success_response(
+            data=response.data,
+            message="Tarefa criada com sucesso",
+            status=201
+        )

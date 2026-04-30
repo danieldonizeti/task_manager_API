@@ -9,7 +9,7 @@ def custom_exception_handler(exc, context):
     #Erros tratados pelo DRF (validação, permissão, etc)
     if response is not None:
         return Response({
-            "sucess": False,
+            "success": False,
             "error": response.data,
             "message": "Erro na requisição"
         }, status=response.status_code)
