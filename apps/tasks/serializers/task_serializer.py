@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.tasks.models import Task
+from django.utils.timezone import now
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -15,6 +16,14 @@ class TaskSerializer(serializers.ModelSerializer):
         read_only=True
     )
 
+
+    title = serializers.CharField(
+        error_messages={
+            "required": "O titulo é obrigatório.",
+            "blank": "O titulo não pode ser vazio"
+        }
+    )
+
     class Meta:
         model = Task
         fields = [
@@ -27,9 +36,17 @@ class TaskSerializer(serializers.ModelSerializer):
             'priority_display',  
             'created_at',
             'updated_at',
+            'due_date',
             'user'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', 'user']
+    
+    
+    def validate_due_date(self, value):
+        if value and value < now():
+            raise serializers.ValidationError("A data deve ser superior ao dia de hoje")
+        return value
+
 
     def validate_status(self, value):
         if self.instance and self.instance.status == 'concluída' and value != 'concluída':
