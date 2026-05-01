@@ -128,12 +128,10 @@ python manage.py test apps.tasks.tests.test_tasks_api
  
 ---
 
-##  Próximas Melhorias 
+##  Algumas das próximas Melhorias 
  
 - [ ] Migrar testes para **pytest + pytest-django**
 - [ ] Adicionar documentação automática com **Swagger (drf-spectacular)**
-- [ ] Adicionar campo de **data de vencimento** nas tarefas
-- [ ] Implementar **categorias/tags** para as tarefas
 - [ ] Configurar **CI/CD com GitHub Actions**
 - [ ] Preparar ambiente de produção dedicado
 - [ ] Frontend para melhor vizualização
@@ -141,7 +139,7 @@ python manage.py test apps.tasks.tests.test_tasks_api
 ---
 
 ##  Autor
- 
+
 Feito por **Daniel Donizeti**  
 [LinkedIn](https://www.linkedin.com/in/daniel-donizeti-853320239)
 
