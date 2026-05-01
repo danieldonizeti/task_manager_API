@@ -2,6 +2,13 @@ from django.db import models
 from django.conf import settings
 
 
+class Category(models.Model):
+        name = models.CharField(max_length=100)
+
+        def __str__(self):
+            return self.name
+        
+
 class Task(models.Model):
 
     class PriorityChoices(models.IntegerChoices):
@@ -44,6 +51,13 @@ class Task(models.Model):
     priority = models.IntegerField(
         choices=PriorityChoices.choices,
         default=PriorityChoices.MEDIUM
+    )
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
     
     user = models.ForeignKey(
