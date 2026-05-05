@@ -16,6 +16,6 @@ def custom_exception_handler(exc, context):
 
     #Erros que são inesperados exemplo (500)
     return Response({
-        "sucess": False,
+        "success": False,
         "message": "Erro interno do servidor"
     }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

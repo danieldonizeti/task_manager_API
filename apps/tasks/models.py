@@ -3,10 +3,10 @@ from django.conf import settings
 
 
 class Category(models.Model):
-        name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
         
 
 class Task(models.Model):
@@ -23,13 +23,8 @@ class Task(models.Model):
     }
 
     PRIORITY_REVERSE_CODE_MAP = {v: k for k, v in PRIORITY_CODE_MAP.items()}
-    
-    priority = models.IntegerField(
-        choices=PriorityChoices.choices,
-        default=PriorityChoices.MEDIUM
-    )
 
-    def get_priority_display(self):
+    def get_priority_code(self):
         return self.PRIORITY_REVERSE_CODE_MAP.get(self.priority)
     
 

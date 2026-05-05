@@ -29,7 +29,10 @@ class TaskAPITest(APITestCase):
         response = self.client.post("/api/tasks/", data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data["title"], "Teste Task")
+        self.assertTrue(response.data["success"])
+        self.assertEqual(response.data["data"]["title"], "Teste Task")
+        self.assertEqual(response.data["data"]["priority"], 3)
+        self.assertEqual(response.data["data"]["priority_code"], "alta")
     
 
     def test_user_cannot_see_others_tasks(self):
@@ -73,7 +76,7 @@ class TaskAPITest(APITestCase):
 
         task = Task.objects.create(
             title="Task",
-            status="concluída",
+            status=Task.StatusChoices.DONE,
             user=self.user
         )
 

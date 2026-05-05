@@ -50,7 +50,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
     def validate_status(self, value):
-        if self.instance and self.instance.status == 'concluída' and value != 'concluída':
+        if self.instance and self.instance.status == Task.StatusChoices.DONE and value != Task.StatusChoices.DONE:
             raise serializers.ValidationError(
                 "Não é possível alterar o status de uma tarefa concluída."
             )

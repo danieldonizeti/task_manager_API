@@ -1,21 +1,33 @@
 from pathlib import Path
 import os
+import sys
 from dotenv import load_dotenv
 from datetime import timedelta
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yt%=)fxjxqzqkazt+@a+0j6pzaz#-ukle$l$yall*g*dm0pobv'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
+IS_TESTING = 'test' in sys.argv
+
+if not SECRET_KEY:
+    if DEBUG or IS_TESTING:
+        SECRET_KEY = get_random_secret_key()
+    else:
+        raise ImproperlyConfigured('A variável de ambiente SECRET_KEY deve ser definida.')
 
 ALLOWED_HOSTS = [
     'task-manager-api-qesq.onrender.com',
@@ -72,8 +84,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-load_dotenv()
-
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
@@ -143,3 +153,11 @@ SIMPLE_JWT = {
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ENABLE_PRODUCTION_SECURITY = not DEBUG and not IS_TESTING
+
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', str(ENABLE_PRODUCTION_SECURITY)) == 'True'
+SESSION_COOKIE_SECURE = ENABLE_PRODUCTION_SECURITY
+CSRF_COOKIE_SECURE = ENABLE_PRODUCTION_SECURITY
+SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '31536000' if ENABLE_PRODUCTION_SECURITY else '0'))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = ENABLE_PRODUCTION_SECURITY
+SECURE_HSTS_PRELOAD = ENABLE_PRODUCTION_SECURITY
