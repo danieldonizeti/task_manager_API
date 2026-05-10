@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'apps.users',
     'apps.tasks',
+    'apps.categories',
     'django_filters',
 ]
 

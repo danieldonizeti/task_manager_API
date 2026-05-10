@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from apps.tasks.models import Task
+from apps.tasks.models import Task, Category
 from django.utils.timezone import now
+from django.db.models import Q
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -23,6 +24,20 @@ class TaskSerializer(serializers.ModelSerializer):
             "blank": "O titulo não pode ser vazio"
         }
     )
+
+    category = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.none(),
+        required=False,
+        allow_null=True
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request:
+            self.fields['category'].queryset = Category.objects.filter(
+                Q(user=None) | Q(user=request.user)
+            )
 
     class Meta:
         model = Task

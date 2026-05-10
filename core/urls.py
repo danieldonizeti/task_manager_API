@@ -7,10 +7,12 @@ from .views import api_root
 
 from apps.users.views.user_view import UserViewSet
 from apps.tasks.views.task_view import TaskViewSet
+from apps.categories.views.views import CategoryViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'tasks', TaskViewSet, basename='tasks')
+router.register(r'categories', CategoryViewSet, basename='categories')
 
 
 urlpatterns = [

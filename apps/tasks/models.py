@@ -1,13 +1,7 @@
 from django.db import models
 from django.conf import settings
+from apps.categories.models import Category
 
-
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-        
 
 class Task(models.Model):
 
@@ -53,6 +47,7 @@ class Task(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
+        related_name='tasks'
     )
     
     user = models.ForeignKey(
