@@ -5,9 +5,10 @@ from django.db.models import Q
 from ..models import Category
 from ..serializers.categories_serializer import CategorySerializer
 from rest_framework.exceptions import PermissionDenied
+from common.views.base_viewset import BaseModelViewSet
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
+class CategoryViewSet(BaseModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = CategorySerializer
 

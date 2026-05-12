@@ -4,9 +4,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from apps.users.models import User
 from apps.users.serializers.user_serializer import UserSerializer, CreateUserSerializer
+from common.views.base_viewset import BaseModelViewSet
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(BaseModelViewSet):
     queryset = User.objects.all()
 
     def get_queryset(self):
