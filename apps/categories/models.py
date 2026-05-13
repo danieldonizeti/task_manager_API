@@ -28,5 +28,3 @@ class Category(models.Model):
     @property
     def is_system(self):
         return self.user is None
-        
-
