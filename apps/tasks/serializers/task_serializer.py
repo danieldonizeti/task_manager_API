@@ -25,6 +25,21 @@ class TaskSerializer(serializers.ModelSerializer):
         }
     )
 
+    category_name = serializers.CharField(
+        source='category.name',
+        read_only=True
+    )
+
+    category_is_system = serializers.BooleanField(
+        source='category.is_system',
+        read_only=True
+    )
+
+    category_slug = serializers.CharField(
+        source='category.slug',
+        read_only=True
+    )
+
     category = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.none(),
         required=False,
@@ -46,13 +61,20 @@ class TaskSerializer(serializers.ModelSerializer):
             'title',
             'description',
             'status',
+
             'priority',
-            'category',         
             'priority_code',
-            'priority_display',  
+            'priority_display', 
+
+            'category',
+            'category_name',
+            'category_is_system',
+            'category_slug',  
+
             'created_at',
             'updated_at',
             'due_date',
+            
             'user'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', 'user']

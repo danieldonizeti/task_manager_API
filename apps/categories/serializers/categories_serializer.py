@@ -8,8 +8,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'user', 'is_system']
-        read_only_fields = ['id', 'user', 'is_system']
+        fields = ['id', 'name', 'slug', 'user', 'is_system']
+        read_only_fields = ['id', 'slug', 'user', 'is_system']
 
     def validate_name(self, value):
         user = self.context['request'].user
