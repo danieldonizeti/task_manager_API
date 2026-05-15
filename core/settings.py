@@ -195,11 +195,31 @@ LOGGING = {
         },
 
         "file": {
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": BASE_DIR / "logs/app.log",
+            "maxBytes": 5 * 1024 * 1024,  # 5 MB
+            "backupCount": 3,
             "formatter": "standard",
             "filters": ["request_id"],
         },
+
+        "audit": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "logs/audit.log",
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 5,
+            "formatter": "standard",
+            
+        },
+    },
+
+    "loggers": {
+        "audit": {
+            "handlers": ["audit"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        
     },
 
     "root": {

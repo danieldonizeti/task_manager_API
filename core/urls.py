@@ -7,7 +7,7 @@ from .views import api_root
 
 from apps.users.views.user_view import UserViewSet
 from apps.tasks.views.task_view import TaskViewSet
-from apps.categories.views.categorie_view import CategoryViewSet
+from apps.categories.views.category_view import CategoryViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)

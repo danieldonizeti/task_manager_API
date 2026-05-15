@@ -1,5 +1,6 @@
 # Logs e arquivos temporários
 *.log
+logs/*.log
 *.pot
 *.pyc
 __pycache__/
