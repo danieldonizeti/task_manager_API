@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'common.middleware.request_id.RequestIDMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -162,3 +163,47 @@ CSRF_COOKIE_SECURE = ENABLE_PRODUCTION_SECURITY
 SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '31536000' if ENABLE_PRODUCTION_SECURITY else '0'))
 SECURE_HSTS_INCLUDE_SUBDOMAINS = ENABLE_PRODUCTION_SECURITY
 SECURE_HSTS_PRELOAD = ENABLE_PRODUCTION_SECURITY
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "filters": {
+        "request_id": {
+            "()": "common.logging.filters.RequestIDFilter",
+        },
+    },
+
+    "formatters": {
+        "standard": {
+            "format": (
+                "[{asctime}] "
+                "{levelname} "
+                "{name} "
+                "request_id={request_id} "
+                "{message}"
+            ),
+            "style": "{",
+        },
+    },
+
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+            "filters": ["request_id"],
+        },
+
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "logs/app.log",
+            "formatter": "standard",
+            "filters": ["request_id"],
+        },
+    },
+
+    "root": {
+        "handlers": ["console", "file"],
+        "level": "INFO",
+    },
+}
