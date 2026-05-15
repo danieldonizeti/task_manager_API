@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'common.middleware.request_id.RequestIDMiddleware',
+    'common.middleware.request_timing.RequestTimingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -211,11 +212,25 @@ LOGGING = {
             "formatter": "standard",
             
         },
+
+        "request_timing": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": BASE_DIR / "logs/request_timing.log",
+            "maxBytes": 4 * 1024 * 1024,
+            "backupCount": 3,
+            "formatter": "standard",
+        },
     },
 
     "loggers": {
         "audit": {
             "handlers": ["audit"],
+            "level": "INFO",
+            "propagate": False,
+        },
+
+        "request_timing": {
+            "handlers": ["request_timing"],
             "level": "INFO",
             "propagate": False,
         },
