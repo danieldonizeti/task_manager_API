@@ -13,3 +13,15 @@ def api_root(request):
             'tasks': reverse('tasks-list', request=request),
         }
     })
+
+from django.http import JsonResponse
+
+def container_check(request):
+    try:
+        with open("/proc/1/cgroup", "rt") as fh:
+            content = fh.read()
+            is_container = any(s in content for s in ["docker", "kubepods", "containerd"])
+    except Exception:
+        is_container = False
+
+    return JsonResponse({"in_container": is_container})
