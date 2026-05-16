@@ -1,30 +1,35 @@
 FROM python:3.12-slim
 
-#Evitando criação de arquivos .pyc
-ENV PYTHONDONTWRITEBYTECODE 1
+# Evita criação de arquivos .pyc
+ENV PYTHONDONTWRITEBYTECODE=1
 
-#log em tempo real
-ENV PYTHONUNBUFFERED 1
+# Log em tempo real
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-#Dependencias do sistema
+# Dependências do sistema
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-#Copiando o requirements
+# Copiando e instalando dependências (cache de layers)
 COPY requirements.txt .
-
-#Instalando as dependencias do python
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-#Copiando o projeto
+# Copiando o projeto
 COPY . .
 
-#Expondo a porta
+# Coletando arquivos estáticos
+RUN python manage.py collectstatic --noinput
+
+# Usuário não-root (segurança)
+RUN adduser --disabled-password --gecos '' appuser
+USER appuser
+
+# Expondo a porta
 EXPOSE 8000
 
-#Comando para rodar a aplicação
-CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Gunicorn para produção
+CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--threads", "2", "--timeout", "120"]
