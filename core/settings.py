@@ -165,6 +165,9 @@ SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', '31536000' if ENABLE_
 SECURE_HSTS_INCLUDE_SUBDOMAINS = ENABLE_PRODUCTION_SECURITY
 SECURE_HSTS_PRELOAD = ENABLE_PRODUCTION_SECURITY
 
+# No topo do settings (opcional, mas ajuda quem lê depois)
+# pip install python-json-logger
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -172,10 +175,16 @@ LOGGING = {
     "filters": {
         "request_id": {
             "()": "common.logging.filters.RequestIDFilter",
-        },
+        }
     },
 
     "formatters": {
+        "json": {
+            "()": "pythonjsonlogger.jsonlogger.JsonFormatter",
+            "fmt": "{asctime} {levelname} {name} {request_id} {message}",
+            "style": "{",
+        
+        },
         "standard": {
             "format": (
                 "[{asctime}] "
@@ -191,34 +200,30 @@ LOGGING = {
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
-            "formatter": "standard",
+            "formatter": "json",
             "filters": ["request_id"],
         },
-
         "file": {
             "class": "logging.handlers.RotatingFileHandler",
             "filename": BASE_DIR / "logs/app.log",
-            "maxBytes": 5 * 1024 * 1024,  # 5 MB
+            "maxBytes": 3 * 1024 * 1024,
             "backupCount": 3,
-            "formatter": "standard",
+            "formatter": "json",
             "filters": ["request_id"],
         },
-
         "audit": {
             "class": "logging.handlers.RotatingFileHandler",
             "filename": BASE_DIR / "logs/audit.log",
             "maxBytes": 5 * 1024 * 1024,
             "backupCount": 5,
-            "formatter": "standard",
-            
+            "formatter": "json",
         },
-
         "request_timing": {
             "class": "logging.handlers.RotatingFileHandler",
             "filename": BASE_DIR / "logs/request_timing.log",
-            "maxBytes": 4 * 1024 * 1024,
-            "backupCount": 3,
-            "formatter": "standard",
+            "maxBytes": 5 * 1024 * 1024,
+            "backupCount": 5,
+            "formatter": "json",
         },
     },
 
@@ -228,17 +233,14 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
-
         "request_timing": {
             "handlers": ["request_timing"],
             "level": "INFO",
             "propagate": False,
         },
-        
     },
-
     "root": {
-        "handlers": ["console", "file"],
+        "handlers": ["console"],
         "level": "INFO",
     },
 }
