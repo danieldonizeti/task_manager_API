@@ -21,9 +21,6 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copiando o projeto
 COPY . .
 
-# Coletando arquivos estáticos
-RUN python manage.py collectstatic --noinput
-
 # Usuário não-root (segurança)
 RUN adduser --disabled-password --gecos '' appuser
 USER appuser
@@ -32,4 +29,4 @@ USER appuser
 EXPOSE 8000
 
 # Gunicorn para produção
-CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--threads", "2", "--timeout", "120"]
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2 --timeout 120"]

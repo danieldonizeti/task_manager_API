@@ -204,38 +204,16 @@ LOGGING = {
             "formatter": "json",
             "filters": ["request_id"],
         },
-        "file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logs/app.log",
-            "maxBytes": 3 * 1024 * 1024,
-            "backupCount": 3,
-            "formatter": "json",
-            "filters": ["request_id"],
-        },
-        "audit": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logs/audit.log",
-            "maxBytes": 5 * 1024 * 1024,
-            "backupCount": 5,
-            "formatter": "json",
-        },
-        "request_timing": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logs/request_timing.log",
-            "maxBytes": 5 * 1024 * 1024,
-            "backupCount": 5,
-            "formatter": "json",
-        },
     },
 
     "loggers": {
         "audit": {
-            "handlers": ["audit"],
+            "handlers": ["console"],
             "level": "INFO",
             "propagate": False,
         },
         "request_timing": {
-            "handlers": ["request_timing"],
+            "handlers": ["console"],
             "level": "INFO",
             "propagate": False,
         },
