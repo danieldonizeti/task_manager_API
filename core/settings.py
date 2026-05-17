@@ -31,6 +31,7 @@ if not SECRET_KEY:
 
 ALLOWED_HOSTS = [
     'task-manager-api-qesq.onrender.com',
+    'task-manager-ag0w.onrender.com',
     '127.0.0.1',
     'localhost',]
 
