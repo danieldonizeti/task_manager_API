@@ -144,4 +144,4 @@ Feito por **Daniel Donizeti**
 [LinkedIn](https://www.linkedin.com/in/daniel-donizeti-853320239)
 
 ## Link da API
-[API](https://task-manager-api-qesq.onrender.com)
+[API](https://task-manager-ag0w.onrender.com)
