@@ -32,4 +32,4 @@ def audit_log(
     }
 
     log_method = getattr(logger, level)
-    log_method(data, extra=extra)
+    log_method(event, extra={**data, **extra})

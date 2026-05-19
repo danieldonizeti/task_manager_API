@@ -18,7 +18,9 @@ class RequestTimingMiddleware:
 
         if not request.path.startswith("/admin/"):
             logger.info(
-                {
+                "request_completed",
+                extra={
+                    "request_id": getattr(request, "request_id", "unknown"),
                     "path": request.path,
                     "method": request.method,
                     "status_code": response.status_code,

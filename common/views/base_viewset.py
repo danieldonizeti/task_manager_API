@@ -36,8 +36,9 @@ class BaseModelViewSet(viewsets.ModelViewSet):
         audit_log(
             event="recurso_criado",
             request=request,
-            obj_id=getattr(getattr(response, "data", {}), "id", None),
-            data=response.data
+            obj_id=response.data.get("id") if isinstance(response.data, dict) else None,
+            resource=self.basename,
+            fields=list(request.data.keys())
         )
 
         return success_response(
@@ -53,8 +54,9 @@ class BaseModelViewSet(viewsets.ModelViewSet):
         audit_log(
             event="recurso_atualizado",
             request=request,
-            obj_id=getattr(getattr(response, "data", {}), "id", None),
-            data=response.data
+            obj_id=response.data.get("id") if isinstance(response.data, dict) else None,
+            resource=self.basename,
+            fields=list(request.data.keys())
         )
 
         return success_response(
@@ -70,7 +72,8 @@ class BaseModelViewSet(viewsets.ModelViewSet):
         audit_log(
             event="recurso_deletado",
             request=request,
-            obj_id=object_id
+            obj_id=object_id,
+            resource=self.basename,
         )
 
         return success_response(
