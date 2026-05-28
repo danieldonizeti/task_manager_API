@@ -61,7 +61,8 @@ class BaseModelViewSet(viewsets.ModelViewSet):
 
         return success_response(
             response.data,
-            self.success_messages["update"]
+            self.success_messages["update"],
+            201
         )
     
     def destroy(self, request, *args, **kwargs):

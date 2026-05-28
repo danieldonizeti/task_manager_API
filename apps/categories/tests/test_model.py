@@ -1,14 +1,12 @@
 import pytest
 from apps.categories.models import Category
+from apps.categories.tests.factories import CategoryFactory
 
 
 @pytest.mark.django_db
 def test_create_category(user):
-    
-    category = Category.objects.create(
-        name='Test Category',
-        user=user
-    )
+
+    category = CategoryFactory(user=user, name='Test Category')
 
     assert category.name == 'Test Category'
     assert category.user == user
@@ -18,21 +16,15 @@ def test_create_category(user):
 @pytest.mark.django_db
 def test_category_str_method(user):
 
-    category = Category.objects.create(
-        name='Test Category',
-        user=user
-    )
+    category = CategoryFactory(name='Casa')
 
-    assert str(category) == 'Test Category'
+    assert str(category) == 'Casa'
 
 
 @pytest.mark.django_db
 def test_delete_user_should_delete_categories(user):
 
-    category = Category.objects.create(
-        name='Test Category',
-        user=user
-    )
+    CategoryFactory(user=user, name='Test')
 
     user.delete()
 

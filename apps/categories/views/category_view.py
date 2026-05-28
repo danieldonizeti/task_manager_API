@@ -24,7 +24,7 @@ class CategoryViewSet(BaseModelViewSet):
         
         return Category.objects.filter(
             Q(user__isnull=True) | Q(user=user)
-        )
+        ).order_by('-id')
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
