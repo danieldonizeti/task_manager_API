@@ -17,6 +17,8 @@ class RequestTimingMiddleware:
         duration_ms = int((time.perf_counter() - start) * 1000)
 
         if not request.path.startswith("/admin/"):
+            user = getattr(request, "user", None)
+
             logger.info(
                 "request_completed",
                 extra={
@@ -25,7 +27,7 @@ class RequestTimingMiddleware:
                     "method": request.method,
                     "status_code": response.status_code,
                     "duration_ms": duration_ms,
-                    "user_id": getattr(request.user, "id", None)
+                    "user_id": getattr(user, "id", None),
                 }
             )
         
