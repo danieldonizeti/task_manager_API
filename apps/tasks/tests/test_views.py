@@ -71,3 +71,16 @@ def test_delete_task(authenticated_api_client, user):
     )
 
     assert response.status_code == 200
+    assert response.data['success'] is True
+
+
+@pytest.mark.django_db
+def test_user_cannot_delete_other_user_task(authenticated_api_client):
+
+    task = TaskFactory(title='Tarefa de outro usuario')
+
+    response = authenticated_api_client.delete(
+        f'/api/tasks/{task.id}/'
+    )
+
+    assert response.status_code in [403, 404]
