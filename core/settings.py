@@ -53,12 +53,12 @@ INSTALLED_APPS = [
     'apps.categories',
     'django_filters',
 
-    'corsheaders'
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware'
-    
+    'corsheaders.middleware.CorsMiddleware',
+
     'common.middleware.request_id.RequestIDMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
