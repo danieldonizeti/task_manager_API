@@ -52,9 +52,13 @@ INSTALLED_APPS = [
     'apps.tasks',
     'apps.categories',
     'django_filters',
+
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware'
+    
     'common.middleware.request_id.RequestIDMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
@@ -234,3 +238,7 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+CORS_ALLWED_ORINGS = [
+    "http://localhost:5173",
+]
