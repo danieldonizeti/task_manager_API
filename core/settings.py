@@ -239,6 +239,6 @@ LOGGING = {
     },
 }
 
-CORS_ALLWED_ORINGS = [
+CORS_ALLWED_ORIGINS = [
     "http://localhost:5173",
 ]
