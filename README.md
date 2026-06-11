@@ -64,12 +64,23 @@ Para criar um superusuario, no terminal rode este comando
 docker-compose exec web python manage.py createsuperuser
 ```
 
-## 🔐 Autenticação
- 
-A API utiliza **JWT**. Para acessar os endpoints protegidos, é necessário incluir o token no header da requisição:
- 
-```
-Authorization: Bearer <seu_token>
+## 🔐 Autenticação JWT
+
+A API utiliza autenticação baseada em **JWT (JSON Web Token)** com dois tokens:
+
+- **Access Token** → enviado em toda requisição no header `Authorization: Bearer <token>`. Tem curta duração
+- **Refresh Token** → usado para renovar o access token sem precisar logar novamente. Tem longa duração
+
+### Fluxo de autenticação
+
+1. Usuário faz login em `POST /api/auth/login/` e recebe os dois tokens
+2. O access token é enviado em toda requisição protegida
+3. Quando o access token expira, o cliente usa `POST /api/auth/refresh/` para obter um novo
+4. Quando o refresh token expira, o usuário precisa fazer login novamente
+
+Para acessar endpoints protegidos:
+```http
+Authorization: Bearer <seu_access_token>
 ```
  
 ---
