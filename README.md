@@ -2,6 +2,11 @@
  
 API REST para gerenciamento de tarefas, desenvolvida com Django e Django REST Framework. Eu estou desenvolvendo esse projeto com fins de aprendizado e adquirir experiencias, essa é a primeira sprint da aplicação que está em desenvolvimento
 
+## Link da API
+[API](https://task-manager-ag0w.onrender.com)
+
+## Link do Front End
+[Front](https://task-manager-front-kxgv.onrender.com)
 ---
 
 ##  Tecnologias Utilizadas
@@ -28,7 +33,7 @@ API REST para gerenciamento de tarefas, desenvolvida com Django e Django REST Fr
 1. Clone o repositório:
 ```bash
 git clone https://github.com/danieldonizeti/task_manger_API.git
-cd task_manger_API
+cd task_manager_API
 ```
  
 2. Crie o arquivo `.env` na raiz do projeto baseado no meu `.env.example`:
@@ -117,24 +122,22 @@ GET /api/tasks/?status=em progresso&ordering=priority
 ---
 
 ## 🧪 Testes
- 
-Por enquanto ele tem testes basicos para criação de tarefas, usando o framework de testes nativo do Django 
- 
+Testes feitos com pytest com um coverage de 90%
+
 Para ver os testes no terminal rode:
  
 ```bash
-python manage.py test apps.tasks.tests.test_tasks_api
+python pytest
 ```
  
 ---
 
 ##  Algumas das próximas Melhorias 
  
-- [ ] Migrar testes para **pytest + pytest-django**
+- [ ] 
 - [ ] Adicionar documentação automática com **Swagger (drf-spectacular)**
 - [ ] Configurar **CI/CD com GitHub Actions**
-- [ ] Preparar ambiente de produção dedicado
-- [ ] Frontend para melhor vizualização
+- [ ] 
 
 ---
 
@@ -142,6 +145,3 @@ python manage.py test apps.tasks.tests.test_tasks_api
 
 Feito por **Daniel Donizeti**  
 [LinkedIn](https://www.linkedin.com/in/daniel-donizeti-853320239)
-
-## Link da API
-[API](https://task-manager-ag0w.onrender.com)
