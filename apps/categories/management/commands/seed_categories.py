@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from apps.categories.models import Category
 
 
-SYSTEM_CATEGORIES = ['Trabalho', 'Pessoal', 'Estudos', 'Saúde', 'Finacças']
+SYSTEM_CATEGORIES = ['Trabalho', 'Pessoal', 'Estudos', 'Saúde', 'Finanças']
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
