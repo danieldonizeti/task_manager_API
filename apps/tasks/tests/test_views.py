@@ -84,3 +84,38 @@ def test_user_cannot_delete_other_user_task(authenticated_api_client):
     )
 
     assert response.status_code in [403, 404]
+
+
+@pytest.mark.django_db
+def test_user_can_only_see_own_tasks(authenticated_api_client, user):
+    TaskFactory(user=user, title="Minha tarefa")
+    TaskFactory(title="Tarefa de outro usuario")
+
+    response = authenticated_api_client.get('/api/tasks/')
+
+    results = response.data['data']['results']
+
+    assert len(results) == 1
+    assert results[0]['title'] == "Minha tarefa"
+
+
+@pytest.mark.django_db
+def test_create_task_without_name_should_fail(authenticated_api_client):
+    payload = {}
+
+    response = authenticated_api_client.post(
+        '/api/tasks/',
+        payload,
+        format='json'
+    )
+
+    assert response.status_code == 400
+    assert response.data['success'] is False
+    assert Task.objects.count() == 0
+
+
+@pytest.mark.django_db
+def test_unauthenticated_user_cannot_list_tasks(api_client):
+    response = api_client.get('/api/tasks/')
+
+    assert response.status_code == 401
