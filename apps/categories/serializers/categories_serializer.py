@@ -10,6 +10,17 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'name', 'slug', 'user', 'is_system']
         read_only_fields = ['id', 'slug', 'user', 'is_system']
+    
+    def validate(self, attrs):
+        user = self.context['request'].user
+
+        if not self.instance:
+            quant_categorias = Category.objects.filter(user=user).count()
+
+            if quant_categorias >= 3:
+                raise serializers.ValidationError("voce atingiu o limite de 3 categorias personalizadas")
+        
+        return attrs
 
     def validate_name(self, value):
         user = self.context['request'].user
