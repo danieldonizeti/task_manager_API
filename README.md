@@ -147,6 +147,7 @@ python pytest
  
 - [ ] Adicionar documentação automática com **Swagger (drf-spectacular)**
 - [ ] Configurar **CI/CD com GitHub Actions**
+- [ ] Rate limiting nas rotas de autenticação
 
 ---
 
