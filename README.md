@@ -145,10 +145,8 @@ python pytest
 
 ##  Algumas das próximas Melhorias 
  
-- [ ] 
 - [ ] Adicionar documentação automática com **Swagger (drf-spectacular)**
 - [ ] Configurar **CI/CD com GitHub Actions**
-- [ ] 
 
 ---
 
