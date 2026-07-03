@@ -244,3 +244,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "https://task-manager-front-kxgv.onrender.com",
 ]
+
+
+#ARMAZENAMENTO DOS CACHES
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "login-attempts",
+    }
+}
