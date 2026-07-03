@@ -1,6 +1,6 @@
 # Task Manager API
  
-API REST para gerenciamento de tarefas, desenvolvida com Django e Django REST Framework. Eu estou desenvolvendo esse projeto com fins de aprendizado e adquirir experiencias, essa é a primeira sprint da aplicação que está em desenvolvimento
+API REST para gerenciamento de tarefas, desenvolvida com Django e Django REST Framework. Eu estou desenvolvendo esse projeto com fins de aprendizado e adquirir experiencias, aplicação em desenvolvimento
 
 ## Link da API
 [API](https://task-manager-ag0w.onrender.com)
@@ -145,10 +145,9 @@ python pytest
 
 ##  Algumas das próximas Melhorias 
  
-- [ ] 
 - [ ] Adicionar documentação automática com **Swagger (drf-spectacular)**
 - [ ] Configurar **CI/CD com GitHub Actions**
-- [ ] 
+- [ ] Rate limiting nas rotas de autenticação
 
 ---
 
