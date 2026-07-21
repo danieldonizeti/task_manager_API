@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django_filters',
 
     'corsheaders',
+
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -163,6 +165,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE':10,
 
     'EXCEPTION_HANDLER': 'common.exceptions.handler.custom_exception_handler',
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -252,4 +256,11 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         "LOCATION": "login-attempts",
     }
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Task Manager API',
+    'DESCRIPTION': 'API REST para gerenciamento de tarefas pessoais com autenticação JWT.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
