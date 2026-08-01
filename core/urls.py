@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView, SpectacularRedocView
+from apps.users.views.auth_view import CustomTokenObtainPairView, CustomTokenRefreshView
 
 
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -31,7 +32,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
 
     path('api/auth/login/', CustomTokenObtainPairView.as_view()),
-    path('api/auth/refresh/', TokenRefreshView.as_view()),
+    path('api/auth/refresh/', CustomTokenRefreshView.as_view()),
 
     #Minhas rotas de documentação
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from common.utils.response import success_response
 from common.audit.logger import audit_log
 
+from drf_spectacular.utils import extend_schema
 
 class BaseModelViewSet(viewsets.ModelViewSet):
 
@@ -80,3 +81,7 @@ class BaseModelViewSet(viewsets.ModelViewSet):
         return success_response(
             message=self.success_messages["destroy"]
         )
+
+    @extend_schema(exclude=True)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
