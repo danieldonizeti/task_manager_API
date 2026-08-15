@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
 
 MIDDLEWARE = [
@@ -263,4 +264,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API REST para gerenciamento de tarefas pessoais com autenticação JWT.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SERVE_PUBLIC': True,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
 }
